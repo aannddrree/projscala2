@@ -1,7 +1,7 @@
 package br.com.projscala2
 
-import org.apache.spark.SparkContext
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{SaveMode, SparkSession}
+import br.com.projscala2.constants.Directory
 
 object ApplicationIngestion {
   def main(args: Array[String]): Unit = {
@@ -12,9 +12,14 @@ object ApplicationIngestion {
       .config("spark.master", "local")
       .getOrCreate();
 
-    val sc = spark.sparkContext
-    val textFile = sc.textFile("README.md")
+    val df = spark.read.format("csv")
+                       .option("header", "true")
+                       .option("multiline", true)
+                       .option("sep", ";")
+                       .load("DadosDrinks.csv")
 
-    print("teste: " + textFile.count())
+    df.show()
+    df.printSchema()
+    df.write.mode(SaveMode.Overwrite).parquet(Directory.dirParquet)
   }
 }
