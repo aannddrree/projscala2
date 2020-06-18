@@ -20,6 +20,6 @@ class ReceivedFile {
       .option("sep", ";")
       .load(Constants.fileInput)
 
-    AcceptFile.accept(df)
+    new AcceptFile().accept(df)
   }
 }
