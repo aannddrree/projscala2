@@ -8,6 +8,7 @@ class Ingestion {
     outputType match {
       case Constants.parquet => new IngestionFile().saveParquet(df)
       case Constants.avro => new IngestionFile().saveAvro(df)
+      case Constants.json => new IngestionFile().saveJson(df)
       case Constants.hbase => new IngestionHBase().saveHbase(df, tableName, columnFamily)
     }
   }

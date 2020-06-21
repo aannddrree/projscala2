@@ -10,4 +10,8 @@ class IngestionFile {
   def saveAvro(df : DataFrame) : Unit = {
     df.write.mode(SaveMode.Overwrite).format("com.databricks.spark.avro").save(Constants.dirAvro)
   }
+
+  def saveJson(df : DataFrame): Unit = {
+    df.write.mode(SaveMode.Overwrite).json(Constants.dirJson)
+  }
 }
