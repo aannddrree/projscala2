@@ -10,7 +10,12 @@ class IngestionHBase {
   val logger: Logger = LoggerFactory.getLogger(this.getClass)
 
   def saveHbase(df : DataFrame, tableName : String, columnFamily : String) : Unit = {
-      createTable(tableName, columnFamily)
+    createTable(tableName, columnFamily)
+    saveAsAPI(df, tableName, columnFamily)
+  }
+
+  def saveAsAPI (df : DataFrame, tableName: String, columnFamily : String) : Unit = {
+    //Implementar
   }
 
   def createTable(tableName : String, columnFamily: String) : Unit = {
