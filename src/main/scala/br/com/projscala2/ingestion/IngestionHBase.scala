@@ -18,10 +18,10 @@ class IngestionHBase extends Serializable {
 
   def saveHbase(df : DataFrame, tableName : String, columnFamily : String) : Unit = {
     createTable(tableName, columnFamily)
-    saveHbasePut(df, tableName, columnFamily)
+    saveHbaseCommon(df, tableName, columnFamily)
   }
 
-  def saveHbasePut (df : DataFrame, tableName: String, columnFamily : String) : Unit ={
+  def saveHbaseCommon (df : DataFrame, tableName: String, columnFamily : String) : Unit ={
     val config = HBaseConfiguration.create
     val table = getConnection().getTable(TableName.valueOf(tableName))
 
