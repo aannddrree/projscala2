@@ -7,4 +7,3 @@ object ApplicationIngestion {
     new ReceivedFile().receivedFile()
   }
 }
-

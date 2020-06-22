@@ -3,10 +3,7 @@ package br.com.projscala2.received
 import br.com.projscala2.accept.AcceptFile
 import br.com.projscala2.config.ApplicationConfig
 import br.com.projscala2.constants.Constants
-import br.com.projscala2.ingestion.IngestionHBase
 import org.apache.spark.sql.SparkSession
-
-import scala.collection.mutable.ListBuffer
 
 class ReceivedFile {
 
@@ -26,17 +23,13 @@ class ReceivedFile {
       .option("sep", ";")
       .load(Constants.fileInput)
 
-  /*  val outputTypes = getOutputTypes()
+    val outputTypes = getOutputTypes()
 
     new AcceptFile().accept(df,
                             outputTypes,
                             config.getString("table-app.tableName"),
                             config.getString("table-app.columnFamily"))
-  */
-
-    new IngestionHBase().saveHbasePut(df, "tabelapiru", "nomaColuna")
   }
-
 
   def getOutputTypes() : List[String] = {
     var outputTypes = List.empty[String]
