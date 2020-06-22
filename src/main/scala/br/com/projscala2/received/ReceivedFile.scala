@@ -36,12 +36,15 @@ class ReceivedFile {
 
     val parquet = config.getBoolean("output-file.parquet")
     val avro = config.getBoolean("output-file.avro")
+    val json = config.getBoolean("output-file.json")
     val hbase = config.getBoolean("output-file.hbase")
 
     if (parquet)
       outputTypes :+= config.getString("constants-app.parquet")
     if (avro)
       outputTypes :+= config.getString("constants-app.avro")
+    if (json)
+      outputTypes :+= config.getString("constants-app.json")
     if (hbase)
       outputTypes :+= config.getString("constants-app.hbase")
 
