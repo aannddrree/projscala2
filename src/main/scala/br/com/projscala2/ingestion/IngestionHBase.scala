@@ -5,6 +5,7 @@ import org.apache.spark.sql.DataFrame
 import org.apache.hadoop.hbase.client.{Connection, ConnectionFactory, Put}
 import org.slf4j.{Logger, LoggerFactory}
 
+
 class IngestionHBase extends Serializable {
 
   val logger: Logger = LoggerFactory.getLogger(this.getClass)
@@ -22,7 +23,6 @@ class IngestionHBase extends Serializable {
   }
 
   def saveHbaseCommon (df : DataFrame, tableName: String, columnFamily : String) : Unit ={
-    val config = HBaseConfiguration.create
     val table = getConnection().getTable(TableName.valueOf(tableName))
 
     for (row <- df.schema.fields){
@@ -42,13 +42,13 @@ class IngestionHBase extends Serializable {
   def createTable(tableName : String, columnFamily: String) : Unit = {
     val admin = getConnection().getAdmin
     val table = new HTableDescriptor(TableName.valueOf(tableName))
-    val family = new HColumnDescriptor(columnFamily.getBytes)
+    val family = new HColumnDescriptor(columnFamily.getBytes())
     table.addFamily(family)
-    if (!admin.tableExists(table.getTableName)){
+    try {
         admin.createTable(table)
         logger.info("Table created!")
+    } catch {
+      case _: Exception => logger.info("Table already exists!")
     }
-    else
-        logger.info("Table already exists!")
   }
 }
