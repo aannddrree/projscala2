@@ -81,6 +81,20 @@ class AppTest extends Serializable {
         data.saveAsNewAPIHadoopDataset(conf)
     }
 
+  @Test
+  def teste1() : Unit = {
+
+    val spark = SparkSession.builder.appName(Constants.appName)
+      .config("spark.master", "local").getOrCreate
+
+    val df = spark.read.format("csv").option("header", "true")
+      .option("multiline", true)
+      .option("sep", ";")
+      .load(Constants.fileInput)
+
+    df.show()
+  }
+
   case class drinks(id : String, country:String, beer_servings: String, spirit_servings: String, wine_servings : String, total_litres_of_pure_alcohol : String) extends Serializable
 
   @Test

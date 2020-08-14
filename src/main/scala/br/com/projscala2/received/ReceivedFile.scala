@@ -38,6 +38,7 @@ class ReceivedFile {
     val avro = config.getBoolean("output-file.avro")
     val json = config.getBoolean("output-file.json")
     val hbase = config.getBoolean("output-file.hbase")
+    val cassandra = config.getBoolean("output-file.cassandra.isLoad")
 
     if (parquet)
       outputTypes :+= config.getString("constants-app.parquet")
@@ -47,7 +48,8 @@ class ReceivedFile {
       outputTypes :+= config.getString("constants-app.json")
     if (hbase)
       outputTypes :+= config.getString("constants-app.hbase")
-
+    if (cassandra)
+      outputTypes :+= config.getString("constants-app.cassandra")
     outputTypes
   }
 }

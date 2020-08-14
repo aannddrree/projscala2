@@ -15,5 +15,5 @@ object Constants {
   val parquet = config.getString("constants-app.parquet")
   val hbase = config.getString("constants-app.hbase")
   val json = config.getString("constants-app.json")
-
+  val cassandra = config.getString("constants-app.cassandra")
 }
